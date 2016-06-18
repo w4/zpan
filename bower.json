@@ -1,0 +1,28 @@
+{
+  "name": "zpan",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Jordan Doyle <jordan@doyle.wf>"
+  ],
+  "license": "GPLv3",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "components-font-awesome": "~4.6.3",
+    "material-design-lite": "~1.1.3",
+    "pusher-websocket-iso": "pusher#~3.1.0",
+    "history.js": "browserstate/history.js#~1.8.0",
+    "ajaxify": "browserstate/ajaxify",
+    "jquery-scrollto": "~1.4.4",
+    "getmdl-select": "*"
+  }
+}

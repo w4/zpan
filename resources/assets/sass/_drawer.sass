@@ -1,0 +1,13 @@
+.mdl-layout__drawer .mdl-navigation
+  .zpan-drawer-separator
+    height: 1px
+    background-color: rgb(220, 220, 220)
+    margin: 8px 0
+
+  span.mdl-navigation__link
+    color: unquote("rgb(#{$color-primary})")
+
+  .mdl-navigation__link
+    &.is-active
+      border-left: 2px solid unquote("rgb(#{$color-accent})")
+      color: unquote("rgb(#{$color-accent})")
