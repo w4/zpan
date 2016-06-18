@@ -1,6 +1,7 @@
 @extends(Request::ajax() ? 'layouts.ajax-main' : 'layouts.main')
 
 @section('title'){{ _('View Connection Info') }} @endsection
+@section('page-title')DJ <i class="material-icons">chevron_right</i> View Connection Information @endsection
 
 @section('content')
     <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">

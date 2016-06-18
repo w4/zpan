@@ -1,6 +1,7 @@
 @extends(Request::ajax() ? 'layouts.ajax-main' : 'layouts.main')
 
 @section('title'){{ _('Add Request Line Ban') }} @endsection
+@section('page-title')Administration <i class="material-icons">chevron_right</i> Request Line Bans <i class="material-icons">chevron_right</i> Add @endsection
 
 @section('content')
     <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">

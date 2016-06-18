@@ -1,6 +1,7 @@
 @extends(Request::ajax() ? 'layouts.ajax-main' : 'layouts.main')
 
 @section('title')Home @endsection
+@section('page-title')ZPAN @endsection
 
 @section('content')
     <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">

@@ -1,6 +1,7 @@
 @extends(Request::ajax() ? 'layouts.ajax-main' : 'layouts.main')
 
 @section('title'){{ _('Request Line Bans') }} @endsection
+@section('page-title')Administration <i class="material-icons">chevron_right</i> Request Line Bans @endsection
 
 @section('content')
     <div class="table-responsive">

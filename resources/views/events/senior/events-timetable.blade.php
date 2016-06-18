@@ -1,6 +1,7 @@
 @extends(Request::ajax() ? 'layouts.ajax-main' : 'layouts.main')
 
 @section('title'){{ _('Approve Events') }} @endsection
+@section('page-title')Senior Events <i class="material-icons">chevron_right</i> Approve Events @endsection
 
 @section('content')
     @if($unapproved->count())

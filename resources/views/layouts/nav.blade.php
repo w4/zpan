@@ -1,6 +1,6 @@
 <header class="mdl-layout__header">
     <div class="mdl-layout__header-row">
-        <span class="mdl-layout__title">ZPAN</span>
+        <span class="mdl-layout__title">@yield('page-title')</span>
 
         <div class="mdl-layout-spacer"></div>
 
@@ -89,6 +89,11 @@
             <a class="mdl-navigation__link {{ is_route('dashboard::admin::connection-info') ? 'is-active' : '' }}"
                href="{{ route('dashboard::admin::connection-info') }}">
                 <i class="material-icons">power</i> Update Connection
+            </a>
+
+            <a class="mdl-navigation__link {{ is_route('dashboard::admin::request-ban') ? 'is-active' : '' }}"
+               href="{{ route('dashboard::admin::request-ban') }}">
+                <i class="material-icons">do_not_disturb_alt</i> Request Line Bans
             </a>
         @endif
     </nav>

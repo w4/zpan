@@ -1,6 +1,7 @@
 @extends(Request::ajax() ? 'layouts.ajax-main' : 'layouts.main')
 
 @section('title'){{ _('Requests') }} @endsection
+@section('page-title')DJ <i class="material-icons">chevron_right</i> Request Line @endsection
 
 @section('content')
     {!! $requests->links() !!}
