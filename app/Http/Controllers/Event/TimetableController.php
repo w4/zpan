@@ -191,13 +191,13 @@ class TimetableController extends Controller
             ->get();
 
         $timetable = [
-            0 => ['name' => 'Monday'],
-            1 => ['name' => 'Tuesday'],
-            2 => ['name' => 'Wednesday'],
-            3 => ['name' => 'Thursday'],
-            4 => ['name' => 'Friday'],
-            5 => ['name' => 'Saturday'],
-            6 => ['name' => 'Sunday']
+            0 => ['name' => _('Monday')],
+            1 => ['name' => _('Tuesday')],
+            2 => ['name' => _('Wednesday')],
+            3 => ['name' => _('Thursday')],
+            4 => ['name' => _('Friday')],
+            5 => ['name' => _('Saturday')],
+            6 => ['name' => _('Sunday')]
         ];
 
         foreach ($week as $slot) {

@@ -1,5 +1,11 @@
 import Pusher from 'pusher-websocket-iso';
 
+Pusher.log = function (message) {
+    if (window.console && window.console.log) {
+        window.console.log(message);
+    }
+};
+
 const bindPusher = () => {
     if (IS_DJ) {
         const pusher = new Pusher(PUSHER_APP_KEY, {

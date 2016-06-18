@@ -47,7 +47,7 @@ class RequestLineBanController extends Controller {
 
         return redirect()->route('dashboard::admin::request-ban')->with('msg', [
             'type' => 'success',
-            'msg' => 'Successfully banned IP address from the request line.'
+            'msg' => _('Successfully banned IP address from the request line.')
         ]);
     }
 

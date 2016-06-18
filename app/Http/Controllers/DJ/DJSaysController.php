@@ -21,7 +21,7 @@ class DJSaysController extends Controller
     public function getForm()
     {
         $says = DJSays::remember(5)->orderBy('id', 'desc')->take(1)->first();
-        return view('dj.dj-says', ['current' => $says ? e($says->msg) : 'Currently unset.']);
+        return view('dj.dj-says', ['current' => $says ? e($says->msg) : _('Currently unset.')]);
     }
 
     /**
@@ -34,7 +34,7 @@ class DJSaysController extends Controller
     {
         $this->validate($request, [
             'msg' => 'required|string|max:200'
-        ], [], ['msg' => 'DJ Says']);
+        ], [], ['msg' => _('DJ Says')]);
 
         $says = new DJSays;
         $says->dj = auth()->user()->userid;
@@ -59,7 +59,7 @@ class DJSaysController extends Controller
         if ($says) {
             return ['dj' => User::remember(30)->find($says->dj)->username, 'msg' => e($says->msg)];
         } else {
-            return ['dj' => 'Unavailable', 'msg' => 'Currently unset.'];
+            return ['dj' => _('Unavailable'), 'msg' => _('Currently unset.')];
         }
     }
 }

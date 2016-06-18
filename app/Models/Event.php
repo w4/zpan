@@ -20,6 +20,7 @@ use Illuminate\Database\Query\Builder;
  * @property integer $hour
  * @property integer $event_type_id
  * @property integer $room_id
+ * @property boolean $approved
  * @property Carbon $created_at
  * @property Carbon $updated_at
  * @property string $deleted_at

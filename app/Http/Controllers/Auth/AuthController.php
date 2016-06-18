@@ -43,16 +43,17 @@ class AuthController extends Controller
             case 'private-dj':
                 // trying to subscribe to DJ push notifications. ensure they're a DJ.
                 if (!auth()->user()->is(Group::RADIO_DJ, Group::GUEST_DJ)) {
-                    abort(403, 'Unauthorized.');
+                    abort(403, _('Unauthorized.'));
                 }
                 break;
 
             default:
                 // they're trying to subscribe to a channel we don't know about. don't let them do it.
-                abort(403, 'Unauthorized.');
+                abort(403, _('Unauthorized.'));
                 break;
         }
 
-        return Pusher::connection()->socket_auth($request->get('channel_name'), $request->get('socket_id'));
+        return response(Pusher::connection()->socket_auth($request->get('channel_name'), $request->get('socket_id')))
+            ->header('Content-Type', 'application/json');
     }
 }

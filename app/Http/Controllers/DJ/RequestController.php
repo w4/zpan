@@ -34,7 +34,7 @@ class RequestController extends Controller
     public function deleteRequest(int $id)
     {
         Request::findOrFail($id)->delete();
-        return redirect()->back()->with('msg', ['type' => 'success', 'msg' => 'Successfully deleted request.']);
+        return redirect()->back()->with('msg', ['type' => 'success', 'msg' => _('Successfully deleted request.')]);
     }
 
     /**
@@ -50,7 +50,7 @@ class RequestController extends Controller
             'request' => 'required|string|max:500'
         ]);
 
-        if (RequestBan::where('ip', $request->ip())->count()) {
+        if (RequestBan::where('ip_address', $request->ip())->count()) {
             // This IP is banned from the request line.
             abort(403);
         }

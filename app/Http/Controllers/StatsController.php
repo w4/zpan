@@ -55,10 +55,7 @@ class StatsController extends Controller
                 file_put_contents(storage_path('stats.json'), json_encode($ret));
             }
 
-            return [
-                'dj' => $stats->dj,
-                'song' => $stats->song
-            ];
+            return $ret;
         } else {
             return json_decode(file_get_contents(storage_path('stats.json')), true);
         }
