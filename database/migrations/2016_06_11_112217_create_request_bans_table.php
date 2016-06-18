@@ -17,6 +17,7 @@ class CreateRequestBansTable extends Migration
             $table->ipAddress('ip_address');
             $table->integer('added_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

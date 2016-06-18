@@ -1,12 +1,12 @@
 <?php
-namespace App\Http\Controllers\Management;
+namespace App\Http\Controllers\Event\Senior;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Carbon\Carbon;
 
 /**
- * Allow a manager to accept or deny events.
+ * Allow a senior event staff member to accept or deny events.
  *
  * @author Jordan Doyle <jordan@doyle.wf>
  */
@@ -20,7 +20,7 @@ class EventsTimetableController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('management.events-timetable', ['unapproved' => $unapproved]);
+        return view('events.senior.events-timetable', ['unapproved' => $unapproved]);
     }
 
     /**

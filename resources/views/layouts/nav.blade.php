@@ -64,15 +64,21 @@
             </a>
         @endif
 
+        @if(auth()->user()->is(App\Models\Group::SENIOR_EVENTS))
+            <div class="zpan-drawer-separator"></div>
+
+            <span class="mdl-navigation__link" href>Senior Events</span>
+
+            <a class="mdl-navigation__link {{ is_route('dashboard::senior-events::awaiting-review') ? 'is-active' : '' }}"
+               href="{{ route('dashboard::senior-events::awaiting-review') }}">
+                <i class="material-icons">event_available</i> Awaiting Review ({{ App\Models\Event::where('week', Carbon\Carbon::now()->weekOfYear)->where('year', Carbon\Carbon::now()->year)->where('approved', false)->count() }})
+            </a>
+        @endif
+
         @if(auth()->user()->isManagement())
             <div class="zpan-drawer-separator"></div>
 
             <span class="mdl-navigation__link" href>Management</span>
-
-            <a class="mdl-navigation__link {{ is_route('dashboard::management::events::timetable') ? 'is-active' : '' }}"
-               href="{{ route('dashboard::management::events::timetable') }}">
-                <i class="material-icons">event_available</i> Events Timetable
-            </a>
         @endif
 
         @if(auth()->user()->isAdmin())

@@ -3,6 +3,7 @@ namespace App\Http\Controllers\DJ;
 
 use App\Http\Controllers\Controller;
 use App\Models\Request;
+use App\Models\RequestBan;
 use Illuminate\Http\Request as HttpRequest;
 use Vinkla\Pusher\Facades\Pusher;
 
@@ -48,6 +49,11 @@ class RequestController extends Controller
             'name' => 'required|string|max:30',
             'request' => 'required|string|max:500'
         ]);
+
+        if (RequestBan::where('ip', $request->ip())->count()) {
+            // This IP is banned from the request line.
+            abort(403);
+        }
 
         $r = new Request;
         $r->name = $request->get('name');

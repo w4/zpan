@@ -21,6 +21,7 @@ class Group extends Model
     const GUEST_DJ = 'Guest DJ';
     const RADIO_DJ = 'Radio DJ';
     const EVENT = 'Events';
+    const SENIOR_EVENTS = 'Senior Events';
     const MANAGEMENT = 'Management';
     const ADMINISTRATOR = 'Administrator';
     const OWNERSHIP = 'Ownership';

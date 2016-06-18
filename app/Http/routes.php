@@ -75,17 +75,24 @@ Route::group(['middleware' => 'auth', 'as' => 'dashboard::'], function () {
     });
 
     Route::group([
+        'as' => 'senior-events::',
+        'prefix' => 'senior-events',
+        'namespace' => 'Event\Senior',
+        'middleware' => sprintf('is:%s', Group::SENIOR_EVENTS)
+    ], function () {
+        // Timetable routes
+        Route::get('awaiting-review', ['as' => 'awaiting-review', 'uses' => 'EventsTimetableController@index']);
+        Route::put('approve/{id}', ['as' => 'approve', 'uses' => 'EventsTimetableController@approve']);
+        Route::delete('deny/{id}', ['as' => 'deny', 'uses' => 'EventsTimetableController@deny']);
+    });
+
+    Route::group([
         'as' => 'management::',
         'prefix' => 'management',
         'namespace' => 'Management',
         'middleware' => 'is:management'
     ], function () {
-        // Events routes
-        Route::group(['prefix' => 'events', 'as' => 'events::'], function () {
-            Route::get('timetable', ['as' => 'timetable', 'uses' => 'EventsTimetableController@index']);
-            Route::put('approve/{id}', ['as' => 'approve', 'uses' => 'EventsTimetableController@approve']);
-            Route::delete('deny/{id}', ['as' => 'deny', 'uses' => 'EventsTimetableController@deny']);
-        });
+
     });
 
     Route::group([
@@ -96,6 +103,11 @@ Route::group(['middleware' => 'auth', 'as' => 'dashboard::'], function () {
     ], function () {
         Route::get('connection-info', ['as' => 'connection-info', 'uses' => 'ConnectionInfoController@getForm']);
         Route::post('connection-info', ['as' => 'connection-info.post', 'uses' => 'ConnectionInfoController@postForm']);
+
+        Route::get('request-ban', ['as' => 'request-ban', 'uses' => 'RequestLineBanController@index']);
+        Route::get('request-ban/add', ['as' => 'request-ban.form', 'uses' => 'RequestLineBanController@banForm']);
+        Route::put('request-ban', ['as' => 'request-ban.ban', 'uses' => 'RequestLineBanController@ban']);
+        Route::delete('request-ban/{id}', ['as' => 'request-ban.unban', 'uses' => 'RequestLineBanController@unban']);
     });
 });
 

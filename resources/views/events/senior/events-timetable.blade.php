@@ -17,7 +17,7 @@
                 </div>
 
                 <div class="mdl-card__actions mdl-card--border">
-                    <form action="{{ route('dashboard::management::events::approve', $event->id) }}" method="post">
+                    <form action="{{ route('dashboard::senior-events::approve', $event->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('put') }}
                         <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
@@ -25,7 +25,7 @@
                         </button>
                     </form>
 
-                    <form action="{{ route('dashboard::management::events::deny', $event->id) }}" method="post">
+                    <form action="{{ route('dashboard::senior-events::deny', $event->id) }}" method="post">
                         {{ csrf_field() }}
                         {{ method_field('delete') }}
                         <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">
