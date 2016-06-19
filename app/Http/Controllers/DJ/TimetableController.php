@@ -148,6 +148,12 @@ class TimetableController extends Controller
             6 => ['name' => _('Sunday')]
         ];
 
+        for($i = 0; $i != 24; $i++) {
+            foreach($timetable as &$slot) {
+                $slot[$i] = null;
+            }
+        }
+
         foreach ($week as $slot) {
             $timetable[$slot->day][$slot->hour] = $raw ? $slot->user->getDisplayName()->toHtml() :
                 $slot->user->getDisplayName();

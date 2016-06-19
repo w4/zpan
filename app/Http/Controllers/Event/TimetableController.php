@@ -201,6 +201,12 @@ class TimetableController extends Controller
             6 => ['name' => _('Sunday')]
         ];
 
+        for ($i = 0; $i != 24; $i++) {
+            foreach ($timetable as &$slot) {
+                $slot[$i] = null;
+            }
+        }
+
         foreach ($week as $slot) {
             $type = $slot->type->name;
 
