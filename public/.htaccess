@@ -22,7 +22,7 @@
 ServerSignature Off
 Header set Access-Control-Allow-Origin "*"
 Header set Access-Control-Allow-Methods "*"
-Header set Access-Control-Allow-Headers "*"
+Header set Access-Control-Allow-Headers "origin, accept, content-type, x-requested-with"
 Header set Timing-Allow-Origin: "*"
 Header unset X-Powered-By
 AddDefaultCharset utf-8
