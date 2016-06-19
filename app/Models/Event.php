@@ -30,7 +30,7 @@ use Illuminate\Database\Query\Builder;
  * @method static Builder|Event whereYear($value)
  * @method static Builder|Event whereDay($value)
  * @method static Builder|Event whereHour($value)
- * @method static Builder|Event whereEventTypesId($value)
+ * @method static Builder|Event whereEventTypeId($value)
  * @method static Builder|Event whereCreatedAt($value)
  * @method static Builder|Event whereUpdatedAt($value)
  * @method static Builder|Event whereDeletedAt($value)

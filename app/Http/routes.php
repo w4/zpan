@@ -92,7 +92,10 @@ Route::group(['middleware' => 'auth', 'as' => 'dashboard::'], function () {
         'namespace' => 'Management',
         'middleware' => 'is:management'
     ], function () {
-
+        Route::get('event-type', ['as' => 'event-type', 'uses' => 'EventTypeController@index']);
+        Route::get('event-type/add', ['as' => 'event-type.form', 'uses' => 'EventTypeController@form']);
+        Route::put('event-type', ['as' => 'event-type.add', 'uses' => 'EventTypeController@add']);
+        Route::delete('event-type/{id}', ['as' => 'event-type.delete', 'uses' => 'eventtypecontroller@delete']);
     });
 
     Route::group([

@@ -79,6 +79,11 @@
             <div class="zpan-drawer-separator"></div>
 
             <span class="mdl-navigation__link" href>Management</span>
+
+            <a class="mdl-navigation__link {{ is_route('dashboard::management::event-type') ? 'is-active' : '' }}"
+               href="{{ route('dashboard::management::event-type') }}">
+                <i class="material-icons">settings_applications</i> Event Types
+            </a>
         @endif
 
         @if(auth()->user()->isAdmin())
