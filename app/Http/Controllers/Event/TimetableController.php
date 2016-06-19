@@ -22,7 +22,7 @@ class TimetableController extends Controller
      */
     public function getTimetable()
     {
-        return view('events.timetable', ['timetable' => $this->getJSONTimetable()]);
+        return view('events.timetable', ['timetable' => $this->getJSONTimetable(false)]);
     }
 
     /**
@@ -181,9 +181,10 @@ class TimetableController extends Controller
     /**
      * Get the booked slots for this week in JSON format.
      *
+     * @param bool $raw should we return the user's name in raw html
      * @return array
      */
-    public function getJSONTimetable()
+    public function getJSONTimetable($raw = true)
     {
         $week = Event::where('week', Carbon::now()->weekOfYear)
             ->where('year', Carbon::now()->year)
@@ -203,7 +204,11 @@ class TimetableController extends Controller
         foreach ($week as $slot) {
             $type = $slot->type->name;
 
-            $timetable[$slot->day][$slot->hour] = $slot->user()->first()->getDisplayName() . " ({$type})";
+            $timetable[$slot->day][$slot->hour] = [
+                'name' => $raw ? $slot->user()->first()->getDisplayName()->toHtml() :
+                    $slot->user()->first()->getDisplayName(),
+                'type' => $type
+            ];
         }
 
         return $timetable;
