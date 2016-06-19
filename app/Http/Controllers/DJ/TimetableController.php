@@ -155,8 +155,10 @@ class TimetableController extends Controller
         }
 
         foreach ($week as $slot) {
-            $timetable[$slot->day][$slot->hour] = $raw ? $slot->user->getDisplayName()->toHtml() :
-                $slot->user->getDisplayName();
+            $timetable[$slot->day][$slot->hour] = [
+                'id' => $slot->user->userid,
+                'name' => $raw ? $slot->user->getDisplayName()->toHtml() : $slot->user->getDisplayName()
+            ];
         }
 
         return $timetable;

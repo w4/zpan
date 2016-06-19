@@ -211,6 +211,7 @@ class TimetableController extends Controller
             $type = $slot->type->name;
 
             $timetable[$slot->day][$slot->hour] = [
+                'id' => $slot->user()->first()->userid,
                 'name' => $raw ? $slot->user()->first()->getDisplayName()->toHtml() :
                     $slot->user()->first()->getDisplayName(),
                 'type' => $type

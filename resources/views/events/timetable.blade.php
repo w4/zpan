@@ -25,7 +25,7 @@
                                         <a href="{{ route('dashboard::event::timetable.book', ['day' => $id, 'hour' => $i]) }}" class="mdl-color-text--primary no-decoration">
                                             {{ _('Unbooked') }}
                                         </a>
-                                    @elseif($day[$i] === auth()->user()->username || auth()->user()->isAdmin())
+                                    @elseif($day[$i]['id'] === auth()->user()->userid || auth()->user()->isAdmin())
                                         <form action="{{ route('dashboard::event::timetable.unbook') }}" method="post"
                                               class="a-submit" style="display: inline">
                                             {{ method_field('delete') }}
@@ -33,11 +33,11 @@
                                             <input type="hidden" name="day" value="{{ $id }}">
                                             <input type="hidden" name="hour" value="{{ $i }}">
                                             <a href="javascript:void(0)" class="mdl-color-text--primary no-decoration">
-                                                {!! $day[$i] !!}
+                                                {{ $day[$i]['name'] }} ({{ $day[$i]['type'] }})
                                             </a>
                                         </form>
                                     @else
-                                        {!! $day[$i] !!}
+                                        {{ $day[$i]['name'] }} ({{ $day[$i]['type'] }})
                                     @endif
                                 </li>
                             @endfor

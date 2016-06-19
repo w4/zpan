@@ -21,19 +21,19 @@
                             @for ($i = 0; $i < 24; $i++)
                                 <li>
                                     {{ sprintf('%02d', $i) }}:00 -
-                                    @if(!isset($day[$i]) || ($day[$i] === auth()->user()->username || auth()->user()->isAdmin()))
+                                    @if(empty($day[$i]) || ($day[$i]['id'] === auth()->user()->userid || auth()->user()->isAdmin()))
                                         <form action="{{ route('dashboard::dj::timetable.book') }}" method="post"
                                               class="a-submit" style="display: inline">
-                                            {{ method_field(isset($day[$i]) ? 'delete' : 'put') }}
+                                            {{ method_field(!empty($day[$i]) ? 'delete' : 'put') }}
                                             {{ csrf_field() }}
                                             <input type="hidden" name="day" value="{{ $id }}">
                                             <input type="hidden" name="hour" value="{{ $i }}">
                                             <a href="javascript:void(0)" class="mdl-color-text--primary no-decoration">
-                                                {!! isset($day[$i]) ? $day[$i] : _('Unbooked') !!}
+                                                {!! !empty($day[$i]) ? $day[$i]['name'] : _('Unbooked') !!}
                                             </a>
                                         </form>
                                     @else
-                                        {!! $day[$i] !!}
+                                        {!! $day[$i]['name'] !!}
                                     @endif
                                 </li>
                             @endfor
