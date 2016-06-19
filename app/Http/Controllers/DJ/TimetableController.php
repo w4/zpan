@@ -149,8 +149,8 @@ class TimetableController extends Controller
         ];
 
         for($i = 0; $i != 24; $i++) {
-            foreach($timetable as &$slot) {
-                $slot[$i] = null;
+            foreach($timetable as &$s) {
+                $s[$i] = null;
             }
         }
 
