@@ -57,7 +57,7 @@ class DJSaysController extends Controller
         $says = DJSays::remember(5)->orderBy('id', 'desc')->take(1)->first();
 
         if ($says) {
-            return ['dj' => User::remember(30)->find($says->dj)->getDisplayName(), 'msg' => e($says->msg)];
+            return ['dj' => User::remember(30)->find($says->dj)->getDisplayName()->toHtml(), 'msg' => e($says->msg)];
         } else {
             return ['dj' => _('Unavailable'), 'msg' => _('Currently unset.')];
         }
