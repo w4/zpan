@@ -38,6 +38,7 @@ class StatsController extends Controller
                     json_decode(file_get_contents(storage_path('stats.json'))) : false;
 
                 $ret['dj'] = empty($stats->dj) ? ($old ? $old->dj : false) : $stats->dj;
+                $ret['raw_dj'] = empty($stats->dj) ? ($old ? $old->dj : false) : $stats->dj;
                 $ret['listeners'] = $stats->currentlisteners;
 
                 if (!$ret['dj']) {
