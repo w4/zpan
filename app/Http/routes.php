@@ -41,7 +41,7 @@ Route::group(['middleware' => 'auth', 'as' => 'dashboard::'], function () {
         'as' => 'dj::',
         'prefix' => 'dj',
         'namespace' => 'DJ',
-        'middleware' => sprintf('is:%s', Group::RADIO_DJ)
+        'middleware' => sprintf('is:%s,%s,%s', Group::RADIO_DJ, Group::HEAD_DJ, Group::GUEST_DJ)
     ], function () {
         // DJ Says routes
         Route::get('says', ['as' => 'says', 'uses' => 'DJSaysController@getForm']);

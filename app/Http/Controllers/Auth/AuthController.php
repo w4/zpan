@@ -42,7 +42,7 @@ class AuthController extends Controller
         switch ($request->get('channel_name')) {
             case 'private-dj':
                 // trying to subscribe to DJ push notifications. ensure they're a DJ.
-                if (!auth()->user()->is(Group::RADIO_DJ, Group::GUEST_DJ)) {
+                if (!auth()->user()->is(Group::RADIO_DJ, Group::GUEST_DJ, Group::HEAD_DJ)) {
                     abort(403, _('Unauthorized.'));
                 }
                 break;

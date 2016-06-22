@@ -20,6 +20,7 @@ class Group extends Model
     const STAFF_PREFIX = '[STAFF]';
     const GUEST_DJ = 'Guest DJ';
     const RADIO_DJ = 'Radio DJ';
+    const HEAD_DJ = 'Head DJ';
     const EVENT = 'Events';
     const SENIOR_EVENTS = 'Senior Events';
     const MANAGEMENT = 'Management';

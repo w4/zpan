@@ -26,7 +26,7 @@
             <i class="material-icons">home</i> {{ _('Home') }}
         </a>
 
-        @if(auth()->user()->is(App\Models\Group::RADIO_DJ, App\Models\Group::GUEST_DJ))
+        @if(auth()->user()->is(App\Models\Group::RADIO_DJ, App\Models\Group::GUEST_DJ, App\Models\Group::HEAD_DJ))
             <div class="zpan-drawer-separator"></div>
 
             <span class="mdl-navigation__link" href>DJ</span>

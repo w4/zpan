@@ -31,7 +31,7 @@
         var PUSHER_CLUSTER = "{{ env('PUSHER_CLUSTER') }}";
         var PUSHER_ENDPOINT = "{{ route('auth::pusher') }}";
         var CSRF_TOKEN = "{{ csrf_token() }}";
-        var IS_DJ = {{ auth()->user()->is(App\Models\Group::RADIO_DJ, App\Models\Group::GUEST_DJ) ? 'true' : 'false' }};
+        var IS_DJ = {{ auth()->user()->is(App\Models\Group::RADIO_DJ, App\Models\Group::HEAD_DJ, App\Models\Group::GUEST_DJ) ? 'true' : 'false' }};
     </script>
     <script src="{{ elixir('js/main.js') }}"></script>
 </body>

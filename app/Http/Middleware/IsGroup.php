@@ -42,7 +42,7 @@ class IsGroup
 
                 return redirect()->route('dashboard::home');
             }
-        } elseif (!Auth::user()->is($group)) {
+        } elseif (!Auth::user()->is(...explode(',', $group))) {
             Session::flash('msg', [
                 'type' => 'danger',
                 'msg' => sprintf('%s %s',
