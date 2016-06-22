@@ -187,7 +187,7 @@ class TimetableController extends Controller
     {
         $event = Event::where('week', Carbon::now()->weekOfYear)
             ->where('year', Carbon::now()->year)
-            ->where('day', Carbon::now()->format('N'))
+            ->where('day', Carbon::now()->format('N') - 1)
             ->where('hour', Carbon::now()->hour)
             ->where('approved', true)
             ->first();
