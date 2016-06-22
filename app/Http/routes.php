@@ -117,6 +117,7 @@ Route::group(['middleware' => 'auth', 'as' => 'dashboard::'], function () {
 Route::group(['middleware' => 'api', 'as' => 'api::', 'prefix' => 'api'], function () {
     Route::get('dj-says', ['as' => 'dj-says', 'uses' => 'DJ\DJSaysController@getSays']);
     Route::get('timetable', ['as' => 'timetable', 'uses' => 'DJ\TimetableController@getJSONTimetable']);
-    Route::get('events', ['as' => 'events', 'uses' => 'Event\TimetableController@getJSONTimetable']);
+    Route::get('event/all', ['as' => 'events', 'uses' => 'Event\TimetableController@getJSONTimetable']);
+    Route::get('event/current', ['as' => 'event.current', 'uses' => 'Event\TimetableController@getCurrentEvent']);
     Route::post('request', ['as' => 'request', 'uses' => 'DJ\RequestController@request']);
 });

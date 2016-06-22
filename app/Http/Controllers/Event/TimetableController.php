@@ -179,6 +179,34 @@ class TimetableController extends Controller
     }
 
     /**
+     * Get the current event.
+     *
+     * @return array
+     */
+    public function getCurrentEvent()
+    {
+        $event = Event::where('week', Carbon::now()->weekOfYear)
+            ->where('year', Carbon::now()->year)
+            ->where('day', Carbon::now()->format('N'))
+            ->where('hour', Carbon::now()->hour)
+            ->where('approved', true)
+            ->first();
+
+        if ($event) {
+            return [
+                'id' => $event->user()->first()->userid,
+                'name' => $event->user()->first()->getDisplayName()->toHtml(),
+                'type' => $event->type->name,
+                'booked' => true
+            ];
+        } else {
+            return [
+                'booked' => false
+            ];
+        }
+    }
+
+    /**
      * Get the booked slots for this week in JSON format.
      *
      * @param bool $raw should we return the user's name in raw html
