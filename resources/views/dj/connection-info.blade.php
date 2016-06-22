@@ -40,8 +40,8 @@
                     {!! __('IP: %s', "<strong>{$connection->ip}</strong>") !!}<br>
                     {!! __('Port: %s', "<strong>{$connection->port}</strong>") !!}<br>
                     {!! __('Stream ID: %s', '<strong>1</strong>') !!}<br>
-                    {!! __('DJ/User ID: %s', '<strong>' . auth()->user()->username . '</strong>') !!}
-                    {!! __('Password: %s', "<strong>{$connection->password}</strong>") !!}
+                    {!! __('DJ/User ID: %s', '<strong>' . auth()->user()->username . '</strong>') !!}<br>
+                    {!! __('Password: %s', "<strong>{$connection->password}</strong>") !!}<br>
                     {!! __('Use SHOUTcast v1 mode: %s', '<strong>UNCHECKED</strong>') !!}
                     <br>
                     {!! __('Bitrate: %s', '<strong>256kbps</strong>') !!}
