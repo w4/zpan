@@ -1,0 +1,9 @@
+/* DEVELOPER */
+Jordan Doyle
+jordan@doyle.wf
+www.doyle.wf
+Southport, Merseyside
+
+/* SITE */
+Components: Laravel, ES6, SASS, jQuery, Roboto, Material Design Lite
+Software: Photoshop, PHPStorm, PSequel, Sequel Pro
