@@ -50,6 +50,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get this user's custom fields.
+     *
+     * @return HasOne
+     */
+    public function fields()
+    {
+        return $this->hasOne(UserField::class, 'userid');
+    }
+
+    /**
      * Get this user's display group.
      *
      * @return Group

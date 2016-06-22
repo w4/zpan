@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Models\ConnectionInfo;
 use App\Models\Timetable;
+use App\Models\User;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Api\TrackApi;
 use stdClass;
@@ -30,12 +32,12 @@ class StatsController extends Controller
             $ret = [];
 
             if (empty($stats->songtitle)) {
-                $ret = ['status' => false];
+                return ['status' => false];
             } else {
                 $old = file_exists(storage_path('stats.json')) ?
                     json_decode(file_get_contents(storage_path('stats.json'))) : false;
 
-                $ret['dj'] = empty($stats->dj) ? ($old ? $old->dj : 'Unset') : $stats->dj;
+                $ret['dj'] = empty($stats->dj) ? ($old ? $old->dj : false) : $stats->dj;
                 $ret['listeners'] = $stats->currentlisteners;
 
                 if (!$ret['dj']) {
@@ -45,7 +47,26 @@ class StatsController extends Controller
                         ->where('hour', Carbon::now()->hour)
                         ->first();
 
-                    $ret['dj'] = $timetable ? $timetable->user->getDisplayName()->toHtml() : 'Offline';
+                    $ret['raw_dj'] = $timetable ? $timetable->user->username : 'Offline';
+                    $ret['dj'] = $ret['raw_dj'];
+                }
+
+                if ($ret['raw_dj'] !== 'Offline') {
+                    $user = User::where('username', $ret['raw_dj'])->first();
+
+                    if (!$user) {
+                        // user doesn't exist (unknown user/slot isn't booked), kick him from the radio.
+                        $client = new Client;
+                        $client->request('GET', "http://{$connection->ip}:{$connection->port}/admin.cgi?sid=1&mode=kicksrc", [
+                            'auth' => ['admin', env('SHOUTCAST_ADMIN')]
+                        ]);
+                        abort(404);
+                    }
+
+                    $ret['dj'] = $user->getDisplayName()->toHtml();
+                    $ret['habbo'] = $user->fields->{env('HABBO_FIELD')};
+                } else {
+                    $ret['habbo'] = '';
                 }
 
                 if (count(explode(' - ', $stats->songtitle, 2)) == 2) {
