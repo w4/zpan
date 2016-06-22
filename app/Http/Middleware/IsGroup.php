@@ -13,10 +13,10 @@ class IsGroup
      *
      * @param  \Illuminate\Http\Request $request
      * @param  \Closure $next
-     * @param  string $group
+     * @param  array $group
      * @return mixed
      */
-    public function handle($request, Closure $next, $group)
+    public function handle($request, Closure $next, ...$group)
     {
         if ($group === 'admin') {
             if (!Auth::user()->isAdmin()) {
@@ -42,7 +42,7 @@ class IsGroup
 
                 return redirect()->route('dashboard::home');
             }
-        } elseif (!Auth::user()->is(...explode(',', $group))) {
+        } elseif (!Auth::user()->is(...$group)) {
             Session::flash('msg', [
                 'type' => 'danger',
                 'msg' => sprintf('%s %s',

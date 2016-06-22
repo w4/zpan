@@ -3,8 +3,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Models\ConnectionInfo;
+use App\Models\Timetable;
+use Carbon\Carbon;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Api\TrackApi;
+use stdClass;
 
 class StatsController extends Controller
 {
@@ -29,17 +32,28 @@ class StatsController extends Controller
             if (empty($stats->songtitle)) {
                 $ret = ['status' => false];
             } else {
-                $old = json_decode(file_get_contents(storage_path('stats.json')));
+                $old = file_exists(storage_path('stats.json')) ?
+                    json_decode(file_get_contents(storage_path('stats.json'))) : false;
 
-                $ret['dj'] = empty($json->dj) ? $old->dj : $stats->dj;
-                $ret['listeners'] = $stats->listeners;
+                $ret['dj'] = empty($stats->dj) ? ($old ? $old->dj : 'Unset') : $stats->dj;
+                $ret['listeners'] = $stats->currentlisteners;
 
-                if (count(explode(' - ', $json->songtitle, 2)) == 2) {
-                    list($artist, $song) = explode(' - ', $json->songtitle, 2);
+                if (!$ret['dj']) {
+                    $timetable = Timetable::where('week', Carbon::now()->weekOfYear)
+                        ->where('year', Carbon::now()->year)
+                        ->where('day', Carbon::now()->format('N') - 1)
+                        ->where('hour', Carbon::now()->hour)
+                        ->first();
+
+                    $ret['dj'] = $timetable ? $timetable->user->getDisplayName()->toHtml() : 'Offline';
+                }
+
+                if (count(explode(' - ', $stats->songtitle, 2)) == 2) {
+                    list($artist, $song) = explode(' - ', $stats->songtitle, 2);
                     $ret['artist'] = $artist;
                     $ret['song'] = $song;
 
-                    if ($stats->songtitle !== "{$old->artist} - {$old->song}") {
+                    /*if ($stats->songtitle !== "{$old->artist} - {$old->song}") {
                         $lastfm = new AuthApi('getsession', [
                             'apiKey' => env('LASTFM_API_KEY'),
                             'secret' => env('LASTFM_SECRET'),
@@ -47,9 +61,9 @@ class StatsController extends Controller
                         ]);
                         $trackApi = new TrackApi($lastfm);
                         $trackApi->scrobble(['artist' => $artist, 'track' => $song, 'timestamp' => 400]);
-                    }
+                    }*/
                 } else {
-                    $ret['song'] = $json->songtitle;
+                    $ret['song'] = $stats->songtitle;
                 }
 
                 file_put_contents(storage_path('stats.json'), json_encode($ret));
