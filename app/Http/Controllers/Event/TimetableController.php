@@ -197,6 +197,7 @@ class TimetableController extends Controller
                 'id' => $event->user()->first()->userid,
                 'name' => $event->user()->first()->getDisplayName()->toHtml(),
                 'type' => $event->type->name,
+                'room' => $event->room_id,
                 'booked' => true
             ];
         } else {
