@@ -249,7 +249,7 @@ class TimetableController extends Controller
                 continue;
             }
 
-            $timetable[$carbon->dayOfWeek][$carbon->hour] = [
+            $timetable[$carbon->dayOfWeek - 1][$carbon->hour] = [
                 'id' => $slot->user()->first()->userid,
                 'name' => $raw ? $slot->user()->first()->getDisplayName()->toHtml() :
                     $slot->user()->first()->getDisplayName(),
