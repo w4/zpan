@@ -260,6 +260,12 @@ class TimetableController extends Controller
         }
 
         foreach ($week as $slot) {
+            if (!$slot->type) {
+                // the type this slot belonged to has gone.
+                $slot->delete();
+                continue;
+            }
+
             $type = $slot->type->name;
 
             $carbon = Carbon::now()->setISODate(
