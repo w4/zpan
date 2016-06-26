@@ -178,14 +178,14 @@ class TimetableController extends Controller
             $carbon = Carbon::now()->setISODate(
                 Carbon::now()->year,
                 Carbon::now()->weekOfYear,
-                $slot->day + 1
+                $slot->day
             )->setTime($slot->hour, 0)->tz(auth()->check() ? auth()->user()->getTimezone() : 'Europe/London');
 
             if (Carbon::now()->weekOfYear !== $carbon->weekOfYear) {
                 continue;
             }
 
-            $timetable[$carbon->dayOfWeek - 1][$carbon->hour] = [
+            $timetable[$carbon->dayOfWeek][$carbon->hour] = [
                 'id' => $slot->user->userid,
                 'name' => $raw ? $slot->user->getDisplayName()->toHtml() : $slot->user->getDisplayName()
             ];
