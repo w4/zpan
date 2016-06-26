@@ -13,6 +13,8 @@
 
             <div class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="user-menu-lower-right">
+                <a class="mdl-menu__item" href="{{ route('dashboard::settings::timezone') }}">Change Timezone</a>
+                <span class="mdl-menu__item" data-mdl-disabled>Change Language</span>
                 <a class="mdl-menu__item" href="{{ route('auth::logout') }}">Logout</a>
             </div>
         </nav>

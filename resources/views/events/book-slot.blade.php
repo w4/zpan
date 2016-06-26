@@ -25,7 +25,7 @@
                     <label for="event-type" class="mdl-textfield__label">Type</label>
 
                     <ul for="event-type" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        @foreach(App\Models\EventType::all() as $type)
+                        @foreach(App\Models\EventType::orderBy('name', 'asc')->get() as $type)
                             <li class="mdl-menu__item">{{ $type->name }}</li>
                         @endforeach
                     </ul>

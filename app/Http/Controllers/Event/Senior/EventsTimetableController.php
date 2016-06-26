@@ -20,6 +20,19 @@ class EventsTimetableController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
+        foreach ($unapproved as $event)
+        {
+            // translate to the user's set timezone
+            $carbon = Carbon::now()->setISODate(
+                Carbon::now()->year,
+                Carbon::now()->weekOfYear,
+                $event->day
+            )->setTime($event->hour, 0)->tz(auth()->user()->getTimezone());
+
+            $event->day = $carbon->dayOfWeek;
+            $event->hour = $carbon->hour;
+        }
+
         return view('events.senior.events-timetable', ['unapproved' => $unapproved]);
     }
 

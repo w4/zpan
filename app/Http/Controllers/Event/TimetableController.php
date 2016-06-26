@@ -56,10 +56,33 @@ class TimetableController extends Controller
             'room_id' => 'required|integer|regex:/^[\d]{8,8}$/'
         ]);
 
+        $carbon = Carbon::now(auth()->user()->getTimezone())->setISODate(
+            Carbon::now()->year,
+            Carbon::now()->weekOfYear,
+            $request->get('day')
+        )->setTime($request->get('hour'), 0)->tz(config('app.timezone'));
+
+        if (Carbon::now()->weekOfYear !== $carbon->weekOfYear) {
+            if ($request->ajax()) {
+                return [
+                    'error' => true,
+                    'msg' => _('This slot will be unbooked when the timetable is cleared on Monday at 00:00 GMT.')
+                ];
+            } else {
+                return redirect()
+                    ->back()
+                    ->with('msg', [
+                        'type' => 'danger',
+                        'msg' => _('This slot will be unbooked when the timetable is cleared on Monday at 00:00 GMT.')
+                    ])
+                    ->with('tab', $request->get('day'));
+            }
+        }
+
         $slot = Event::where('week', Carbon::now()->weekOfYear)
             ->where('year', Carbon::now()->year)
-            ->where('day', $request->get('day'))
-            ->where('hour', $request->get('hour'))
+            ->where('day', $carbon->dayOfWeek)
+            ->where('hour', $carbon->hour)
             ->where('approved', true)
             ->take(1)
             ->count();
@@ -81,8 +104,8 @@ class TimetableController extends Controller
 
         $slot = Event::where('week', Carbon::now()->weekOfYear)
             ->where('year', Carbon::now()->year)
-            ->where('day', $request->get('day'))
-            ->where('hour', $request->get('hour'))
+            ->where('day', $carbon->dayOfWeek)
+            ->where('hour', $carbon->hour)
             ->where('user', auth()->user()->userid)
             ->where('approved', false)
             ->count();
@@ -108,8 +131,8 @@ class TimetableController extends Controller
         $slot = new Event;
         $slot->year = Carbon::now()->year;
         $slot->week = Carbon::now()->weekOfYear;
-        $slot->day = $request->get('day');
-        $slot->hour = $request->get('hour');
+        $slot->day = $carbon->dayOfWeek;
+        $slot->hour = $carbon->hour;
         $slot->event_type_id = EventType::whereName($request->get('event_type'))->firstOrFail()->id;
         $slot->user = auth()->user()->userid;
         $slot->room_id = $request->get('room_id');

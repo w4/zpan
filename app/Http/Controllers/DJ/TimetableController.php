@@ -41,7 +41,7 @@ class TimetableController extends Controller
             Carbon::now()->year,
             Carbon::now()->weekOfYear,
             $request->get('day')
-        )->setTime($request->get('hour'), 0);
+        )->setTime($request->get('hour'), 0)->tz(config('app.timezone'));
 
         if (Carbon::now()->weekOfYear !== $carbon->weekOfYear) {
             if ($request->ajax()) {

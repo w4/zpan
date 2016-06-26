@@ -75,6 +75,14 @@ Route::group(['middleware' => 'auth', 'as' => 'dashboard::'], function () {
     });
 
     Route::group([
+        'as' => 'settings::',
+        'prefix' => 'settings'
+    ], function () {
+        Route::get('timezone', ['as' => 'timezone', 'uses' => 'SettingsController@timezoneForm']);
+        Route::put('timezone', ['as' => 'timezone.update', 'uses' => 'SettingsController@updateTimezone']);
+    });
+
+    Route::group([
         'as' => 'senior-events::',
         'prefix' => 'senior-events',
         'namespace' => 'Event\Senior',
