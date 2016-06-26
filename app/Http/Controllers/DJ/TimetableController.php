@@ -40,7 +40,7 @@ class TimetableController extends Controller
         $carbon = Carbon::now(auth()->user()->getTimezone())->setISODate(
             Carbon::now()->year,
             Carbon::now()->weekOfYear,
-            $request->get('day') + 1
+            $request->get('day')
         )->setTime($request->get('hour'), 0);
 
         if (Carbon::now()->weekOfYear !== $carbon->weekOfYear) {
