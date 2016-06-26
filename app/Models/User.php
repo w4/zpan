@@ -50,6 +50,26 @@ class User extends Authenticatable
     }
 
     /**
+     * Get this user's timezone.
+     *
+     * @return HasOne
+     */
+    public function timezone()
+    {
+        return $this->hasOne(Timezone::class);
+    }
+
+    /**
+     * Get the user's timezone or the app's timezone if that is not set.
+     *
+     * @return string
+     */
+    public function getTimezone()
+    {
+        return $this->timezone ? $this->timezone->timezone : config('app.timezone');
+    }
+
+    /**
      * Get this user's custom fields.
      *
      * @return HasOne

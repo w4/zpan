@@ -20,7 +20,7 @@ class EventTypeController extends Controller
     public function index()
     {
         return view('management.event-types', [
-            'types' => EventType::orderBy('id', 'desc')->paginate(15)
+            'types' => EventType::orderBy('name', 'desc')->paginate(15)
         ]);
     }
 

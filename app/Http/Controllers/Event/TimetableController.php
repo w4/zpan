@@ -239,7 +239,17 @@ class TimetableController extends Controller
         foreach ($week as $slot) {
             $type = $slot->type->name;
 
-            $timetable[$slot->day][$slot->hour] = [
+            $carbon = Carbon::now()->setISODate(
+                Carbon::now()->year,
+                Carbon::now()->weekOfYear,
+                $slot->day + 1
+            )->setTime($slot->hour, 0)->tz(auth()->check() ? auth()->user()->getTimezone() : 'Europe/London');
+
+            if (Carbon::now()->weekOfYear !== $carbon->weekOfYear) {
+                continue;
+            }
+
+            $timetable[$carbon->dayOfWeek][$carbon->hour] = [
                 'id' => $slot->user()->first()->userid,
                 'name' => $raw ? $slot->user()->first()->getDisplayName()->toHtml() :
                     $slot->user()->first()->getDisplayName(),
