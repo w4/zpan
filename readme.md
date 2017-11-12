@@ -1,27 +1,153 @@
-# Laravel PHP Framework
+# zpan
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Zpan is a beautiful radio management control panel written using Laravel. It has the following features:
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+- "Connection Info" page for DJs
+- Request line
+  - Bans by IP
+- Radio timetable (by user's timezone)
+- Events
+  - Events require approval from a manager (or admin)
+- vBulletin integration (you need a vBulletin users database to authenticate users from - shows the user's display name globally)
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+## API Endpoints
 
-## Official Documentation
+### GET /api/dj-says
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Response:
 
-## Contributing
+```json
+{
+  "dj": "<div style="color: red;">Jordan Doyle</div>",
+  "msg": "Welcome to the radio!"
+}
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+### GET /api/timetable
 
-## Security Vulnerabilities
+Response:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+```json
+[
+  {
+    "name": "Monday",
+    0: null,
+    1: null,
+    2: null,
+    ...
+    13: "<div style=\"color: red\">Jordan Doyle</div>",
+    14: "Jordan Doyle",
+    15: null
+    ...
+  },
+  {
+    "name": "Tuesday",
+    0: null,
+    1: null,
+    ...
+    10: "10am Tuesdays",
+    11: null,
+    ...
+  }
+]
+```
 
-## License
+### GET /api/event/all
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Response:
+
+```json
+[
+  {
+    "name": "Monday",
+    0: null,
+    1: null,
+    2: null,
+    ...
+    13: "<div style=\"color: red\">The 1pm Event</div>",
+    15: null
+  },
+  ...
+]
+```
+
+### GET /api/event/current
+
+Response:
+
+```json
+{
+  "id": 10,
+  "name": "<div>Jordan Doyle</div>",
+  "type": "Falling Furni",
+  "room": 123456789,
+  "booked": true
+}
+```
+
+OR
+
+```json
+{
+  "booked": false
+}
+```
+
+
+
+### GET /api/stats
+
+Response:
+
+```json
+{
+  "listeners": 32,
+  "raw_dj": "Jordan",
+  "dj": "<span style=\"color: red\">Jordan</span>",
+  "habbo": "jordanpotter",
+  "artist": "Aystar",
+  "song": "Behind Barz Freestyle"
+}
+```
+
+OR
+
+```json
+{
+  "status": false
+}
+```
+
+
+
+### POST /api/request
+
+Request:
+
+```json
+{
+  "name": "Dave The Requester",
+  "request": "Hey can you play Cotton Eyed Joe please?"
+}
+```
+
+Response:
+
+```json
+{
+  "type": "success",
+  "msg": "Successfully submitted your request. We'll let the DJ know!"
+}
+```
+
+### Installation
+
+You must configure the [groups](https://github.com/w4/zpan/blob/master/app/Models/Group.php) to match your vBulletin setup. Then copy `.env.example` to `.env` and configure.
+
+You can then run the migrations and gulp and you're ready to go!
+
+```bash
+php artisan migrate
+gulp
+```
+
