@@ -18,7 +18,7 @@ Response:
 
 ```json
 {
-  "dj": "<div style="color: red;">Jordan Doyle</div>",
+  "dj": "<div style=\"color: red;\">Jordan Doyle</div>",
   "msg": "Welcome to the radio!"
 }
 ```
@@ -31,22 +31,22 @@ Response:
 [
   {
     "name": "Monday",
-    0: null,
-    1: null,
-    2: null,
+    "0": null,
+    "1": null,
+    "2": null,
     ...
-    13: "<div style=\"color: red\">Jordan Doyle</div>",
-    14: "Jordan Doyle",
-    15: null
+    "13": "<div style=\"color: red\">Jordan Doyle</div>",
+    "14": "Jordan Doyle",
+    "15": null
     ...
   },
   {
     "name": "Tuesday",
-    0: null,
-    1: null,
+    "0": null,
+    "1": null,
     ...
-    10: "10am Tuesdays",
-    11: null,
+    "10": "10am Tuesdays",
+    "11": null,
     ...
   }
 ]
@@ -60,12 +60,12 @@ Response:
 [
   {
     "name": "Monday",
-    0: null,
-    1: null,
-    2: null,
+    "0": null,
+    "1": null,
+    "2": null,
     ...
-    13: "<div style=\"color: red\">The 1pm Event</div>",
-    15: null
+    "13": "<div style=\"color: red\">The 1pm Event</div>",
+    "15": null
   },
   ...
 ]
